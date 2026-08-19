@@ -59,3 +59,25 @@ def test_mask_shapes_must_match():
 def test_vertical_diameter_rejects_invalid_threshold():
     with pytest.raises(ValueError, match="range"):
         vertical_diameter(np.ones((4, 4)), threshold=-0.1)
+
+
+def test_mask_must_be_two_dimensional_numeric_and_finite():
+    with pytest.raises(ValueError, match="two-dimensional"):
+        vertical_diameter(np.ones((2, 2, 1)))
+    with pytest.raises(TypeError, match="numeric or boolean"):
+        vertical_diameter(np.full((2, 2), "x"))
+    with pytest.raises(ValueError, match="NaN"):
+        vertical_diameter(np.full((2, 2), np.nan))
+
+
+def test_cdr_threshold_is_validated_and_containment_can_be_disabled():
+    mask = np.ones((4, 4))
+    with pytest.raises(ValueError, match="range"):
+        estimate_vertical_cdr(mask, mask, threshold=1)
+
+    disc = np.zeros((6, 6))
+    cup = np.zeros_like(disc)
+    disc[2:5, 2:5] = 1
+    cup[1:4, 2:4] = 1
+    result = estimate_vertical_cdr(disc, cup, require_cup_within_disc=False)
+    assert result.ratio == 1

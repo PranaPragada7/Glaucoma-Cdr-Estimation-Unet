@@ -11,6 +11,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
       - name: Check out repository
@@ -19,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: |
             pyproject.toml
@@ -30,6 +34,9 @@ jobs:
 
       - name: Check formatting
         run: python -m black --check .
+
+      - name: Run lint checks
+        run: python -m ruff check .
 
       - name: Compile source files
         run: python -m compileall -q glaucoma_cdr tests
