@@ -1,6 +1,7 @@
 # Glaucoma CDR Estimation with U-Net
 
 [![CI](https://github.com/PranaPragada7/Glaucoma-Cdr-Estimation-Unet/actions/workflows/ci.yml/badge.svg)](https://github.com/PranaPragada7/Glaucoma-Cdr-Estimation-Unet/actions/workflows/ci.yml)
+![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?logo=tensorflow&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
@@ -123,6 +124,7 @@ Install development dependencies and run the repository checks:
 ```powershell
 python -m pip install -r requirements-dev.txt
 python -m black --check .
+python -m ruff check .
 python -m pytest -q
 ```
 
@@ -130,6 +132,9 @@ The tests cover mask validation, vertical CDR calculation, U-Net output shape,
 and compatibility with the committed weight file. No clinical performance
 claim is made because the repository does not contain a reproducible held-out
 evaluation dataset or an auditable metric report.
+
+The automated suite enforces at least 85% coverage across the maintained Python
+package and validates the committed weights against the reconstructed model.
 
 ## Limitations
 
@@ -144,6 +149,10 @@ evaluation dataset or an auditable metric report.
 See [`MODEL_CARD.md`](MODEL_CARD.md) for the full intended-use and limitation
 statement.
 
+For local Windows setup in a deeply nested checkout, create the virtual
+environment in a short path if TensorFlow installation reports a path-length
+error. The repository itself does not require long-path configuration.
+
 ## References
 
 - Ronneberger, Fischer, and Brox, [*U-Net: Convolutional Networks for
@@ -153,3 +162,6 @@ statement.
   2010. DOI: `10.1109/IEMBS.2010.5626137`.
 - Garway-Heath et al., [*Vertical cup/disc ratio in relation to optic disc
   size*](https://pmc.ncbi.nlm.nih.gov/articles/PMC1722393/), 1998.
+
+See [`CHANGELOG.md`](CHANGELOG.md) for release history and
+[`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidelines.
