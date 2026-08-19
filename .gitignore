@@ -1,0 +1,31 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Notebook and editor state
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local datasets and generated predictions
+data/
+outputs/
+*.npy
+*.npz
+
+# Additional training artifacts
+*.keras
+*.h5
+!weights/model_weights.h5
+
+# Logs and local configuration
+*.log
+.env
