@@ -94,3 +94,25 @@ def test_infer_image_composes_model_loading_and_prediction(tmp_path, monkeypatch
     result = inference.infer_image(path, weights_path="weights.h5", threshold=0.6)
 
     assert result.cdr.ratio == 0.5
+
+
+@pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+def test_invalid_prediction_values_are_rejected(value):
+    class InvalidModel(FakeSegmentationModel):
+        def predict(self, batch, verbose=0):
+            prediction = super().predict(batch, verbose)
+            prediction[0, :, :, 1] = value
+            return prediction
+
+    with pytest.raises(ValueError, match="model output contains"):
+        predict_array(InvalidModel(), np.zeros((256, 256, 3), dtype=np.float32))
+
+
+@pytest.mark.parametrize("shape", [(0, 256, 256, 3), (2, 256, 256, 3), (256, 256, 3)])
+def test_invalid_prediction_batch_is_rejected(shape):
+    class InvalidModel:
+        def predict(self, batch, verbose=0):
+            return np.zeros(shape, dtype=np.float32)
+
+    with pytest.raises(ValueError, match="model output must have shape"):
+        predict_array(InvalidModel(), np.zeros((256, 256, 3), dtype=np.float32))
