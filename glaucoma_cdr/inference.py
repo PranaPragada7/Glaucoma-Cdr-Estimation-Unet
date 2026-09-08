@@ -60,9 +60,12 @@ def predict_array(
     if not np.isfinite(array).all():
         raise ValueError("image contains NaN or infinite values")
 
-    prediction = np.asarray(model.predict(array[None, ...], verbose=0))[0]
-    if prediction.shape != (256, 256, 3):
-        raise ValueError("model output must have shape (256, 256, 3)")
+    prediction = np.asarray(model.predict(array[None, ...], verbose=0))
+    if prediction.shape != (1, 256, 256, 3):
+        raise ValueError("model output must have shape (1, 256, 256, 3)")
+    if not np.isfinite(prediction).all():
+        raise ValueError("model output contains NaN or infinite values")
+    prediction = prediction[0]
 
     disc_probability = prediction[:, :, 0].astype(np.float32, copy=False)
     cup_probability = prediction[:, :, 1].astype(np.float32, copy=False)
