@@ -33,7 +33,7 @@ therefore treated as a legacy research weight file.
 Weight file:
 
 ```text
-weights/model_weights.h5
+glaucoma_cdr/weights/model_weights.h5
 SHA-256: 907da603a355ce7d52e80c30337ef3f8a77f49add1e5d2cfc084087c7b2bd7cc
 ```
 

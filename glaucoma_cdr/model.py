@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Any
 
-DEFAULT_WEIGHTS = Path(__file__).resolve().parents[1] / "weights" / "model_weights.h5"
+DEFAULT_WEIGHTS = Path(__file__).resolve().parent / "weights" / "model_weights.h5"
 
 
 def _tensorflow() -> Any:
