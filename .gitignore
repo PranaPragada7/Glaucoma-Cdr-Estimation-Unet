@@ -4,6 +4,8 @@ venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
+build/
+dist/
 .pytest_cache/
 .coverage
 htmlcov/
@@ -26,7 +28,7 @@ outputs/
 # Additional training artifacts
 *.keras
 *.h5
-!weights/model_weights.h5
+!glaucoma_cdr/weights/model_weights.h5
 
 # Logs and local configuration
 *.log

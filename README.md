@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/PranaPragada7/Glaucoma-Cdr-Estimation-Unet/actions/workflows/ci.yml/badge.svg)](https://github.com/PranaPragada7/Glaucoma-Cdr-Estimation-Unet/actions/workflows/ci.yml)
 ![Coverage](https://img.shields.io/badge/coverage-85%25%2B-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.10--3.12-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11--3.12-3776AB?logo=python&logoColor=white)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-FF6F00?logo=tensorflow&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
 
@@ -38,14 +38,16 @@ and CDR measurement so each part can be inspected and tested independently.
 | `glaucoma_cdr/inference.py` | Loads an image, runs segmentation, and calculates CDR |
 | `glaucoma_cdr/cdr.py` | Validated vertical CDR calculation from binary masks |
 | `glaucoma_cdr/cli.py` | Command-line inference entry point |
-| `weights/model_weights.h5` | Trained model weights retained from the original project |
+| `glaucoma_cdr/weights/model_weights.h5` | Trained model weights bundled with the package |
 | `notebooks/glaucoma_cdr_estimation_unet.ipynb` | Original Colab training and exploration notebook |
 | `MODEL_CARD.md` | Model assumptions, provenance, and limitations |
 | `tests/` | Unit and model-loading checks |
 
 ## Quick start
 
-Use Python 3.10, 3.11, or 3.12. Python 3.11 is used in continuous integration.
+Use Python 3.11 or 3.12. Both versions are covered by continuous integration.
+Pillow 13 is required for its image-decoder security fixes and requires Python
+3.11 or newer.
 
 ```powershell
 git clone https://github.com/PranaPragada7/Glaucoma-Cdr-Estimation-Unet.git
